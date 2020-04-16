@@ -7,7 +7,7 @@ import SearchForm from './SearchForm';
 import MovieDetail from './MovieDetail';
 import API from '../utils/API';
 
-class OmdbContainer extends Component {
+class EmpContainer extends Component {
 	state = {
 		results: [],
 		search: '',
@@ -15,10 +15,10 @@ class OmdbContainer extends Component {
 
 	// when class gets mounted into the virtual dom, componentDidMount will run the function;
 	componentDidMount() {
-		this.searchMovies();
+		this.searchEmployees();
 	}
 
-	searchMovies = () => {
+	searchEmployees = () => {
 		API.search()
 			// res is the data coming back from the axios call;
 			.then((res) => this.setState({ results: res.data.results }))
@@ -46,7 +46,7 @@ class OmdbContainer extends Component {
 	handleFormSubmit = (event) => {
 		// Preventing the default behavior of the form submit (which is to refresh the page)
 		event.preventDefault();
-		this.searchMovies(this.state.search);
+		this.searchEmployees(this.state.search);
 	};
 
 	render() {
@@ -55,9 +55,17 @@ class OmdbContainer extends Component {
 
 		return (
 			<Container>
-				<card className="justify-content-center">
-					<Row>
-						<Col size="md-3">HEAD SHOT</Col>
+				<Card className="justify-content-center">
+					<Row heading="Your Awesome Company!!!">
+						<Col size="md-3">
+							<button
+								className="btn btn-light btn-sm"
+								onClick={this.handleSort}
+								disabled
+							>
+								HEAD-SHOT
+							</button>
+						</Col>
 						<Col size="md-3" className="btn btn-light btn-sm">
 							<button
 								className="btn btn-light btn-sm"
@@ -66,10 +74,26 @@ class OmdbContainer extends Component {
 								NAME
 							</button>
 						</Col>
-						<Col size="md-3">CELL</Col>
-						<Col size="md-3">EMAIL</Col>
+						<Col size="md-3">
+							<button
+								className="btn btn-light btn-sm"
+								onClick={this.handleSort}
+								disabled
+							>
+								CELL
+							</button>
+						</Col>
+						<Col size="md-3">
+							<button
+								className="btn btn-light btn-sm"
+								onClick={this.handleSort}
+								disabled
+							>
+								EMAIL
+							</button>
+						</Col>
 					</Row>
-				</card>
+				</Card>
 				{this.state.results.map((employee) => {
 					console.log(employee);
 					return (
@@ -93,4 +117,4 @@ class OmdbContainer extends Component {
 	}
 }
 
-export default OmdbContainer;
+export default EmpContainer;
