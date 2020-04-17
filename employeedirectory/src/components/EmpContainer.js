@@ -27,29 +27,56 @@ class EmpContainer extends Component {
 			.catch((err) => console.log(err));
 	};
 
-	handleSort = () => {
+	// using alphaOrder to switch between ascending and deciding order;
+	handleSort = (sortBy) => {
+		console.log(sortBy);
 		const { results, alphaOrder } = this.state;
 		let sortedEmployees;
-		if (alphaOrder === true) {
-			sortedEmployees = results.sort((a, b) => {
-				if (a.name.last < b.name.last) {
-					return -1;
-				}
-				if (a.name.last > b.name.last) {
-					return 1;
-				}
-				return 0;
-			});
-		} else {
-			sortedEmployees = results.sort((a, b) => {
-				if (a.name.last > b.name.last) {
-					return -1;
-				}
-				if (a.name.last < b.name.last) {
-					return 1;
-				}
-				return 0;
-			});
+
+		if (sortBy === 'name') {
+			if (alphaOrder === true) {
+				sortedEmployees = results.sort((a, b) => {
+					if (a.name.last < b.name.last) {
+						return -1;
+					}
+					if (a.name.last > b.name.last) {
+						return 1;
+					}
+					return 0;
+				});
+			} else {
+				sortedEmployees = results.sort((a, b) => {
+					if (a.name.last > b.name.last) {
+						return -1;
+					}
+					if (a.name.last < b.name.last) {
+						return 1;
+					}
+					return 0;
+				});
+			}
+		} else if (sortBy === 'email') {
+			if (alphaOrder === true) {
+				sortedEmployees = results.sort((a, b) => {
+					if (a.email < b.email) {
+						return -1;
+					}
+					if (a.email > b.email) {
+						return 1;
+					}
+					return 0;
+				});
+			} else {
+				sortedEmployees = results.sort((a, b) => {
+					if (a.email > b.email) {
+						return -1;
+					}
+					if (a.email < b.email) {
+						return 1;
+					}
+					return 0;
+				});
+			}
 		}
 		this.setState({ results: results, alphaOrder: !alphaOrder });
 		console.log(sortedEmployees);
@@ -59,9 +86,6 @@ class EmpContainer extends Component {
 		// Getting the value and name of the input which triggered the change
 		const value = event.target.value;
 		const name = event.target.name;
-
-		// update the state of the password to the rendered change
-		// const pass = event.target.password;
 
 		// Updating the input's state
 		this.setState({
@@ -83,36 +107,27 @@ class EmpContainer extends Component {
 				<Card className="justify-content-center">
 					<Row heading="Your Awesome Company!!!">
 						<Col size="md-3">
-							<button
-								className="btn btn-light btn-sm"
-								onClick={this.handleSort}
-								disabled
-							>
+							<button className="btn btn-light btn-sm" disabled>
 								HEAD-SHOT
 							</button>
 						</Col>
 						<Col size="md-3" className="btn btn-light btn-sm">
 							<button
 								className="btn btn-light btn-sm"
-								onClick={this.handleSort}
+								onClick={() => this.handleSort('name')}
 							>
 								NAME
 							</button>
 						</Col>
 						<Col size="md-3">
-							<button
-								className="btn btn-light btn-sm"
-								onClick={this.handleSort}
-								disabled
-							>
+							<button className="btn btn-light btn-sm" disabled>
 								CELL
 							</button>
 						</Col>
 						<Col size="md-3">
 							<button
 								className="btn btn-light btn-sm"
-								onClick={this.handleSort}
-								disabled
+								onClick={() => this.handleSort('email')}
 							>
 								EMAIL
 							</button>
