@@ -11,11 +11,13 @@ class EmpContainer extends Component {
 	state = {
 		results: [],
 		search: '',
+		alphaOrder: true,
 	};
 
 	// when class gets mounted into the virtual dom, componentDidMount will run the function;
 	componentDidMount() {
 		this.searchEmployees();
+		// this.handleSort();
 	}
 
 	searchEmployees = () => {
@@ -26,7 +28,31 @@ class EmpContainer extends Component {
 	};
 
 	handleSort = () => {
-		console.log('sorting hat');
+		const { results, alphaOrder } = this.state;
+		let sortedEmployees;
+		if (alphaOrder === true) {
+			sortedEmployees = results.sort((a, b) => {
+				if (a.name.last < b.name.last) {
+					return -1;
+				}
+				if (a.name.last > b.name.last) {
+					return 1;
+				}
+				return 0;
+			});
+		} else {
+			sortedEmployees = results.sort((a, b) => {
+				if (a.name.last > b.name.last) {
+					return -1;
+				}
+				if (a.name.last < b.name.last) {
+					return 1;
+				}
+				return 0;
+			});
+		}
+		this.setState({ results: results, alphaOrder: !alphaOrder });
+		console.log(sortedEmployees);
 	};
 
 	handleInputChange = (event) => {
@@ -50,7 +76,6 @@ class EmpContainer extends Component {
 	};
 
 	render() {
-		//
 		if (this.state.results.length === 0) return <p>Loading...</p>;
 
 		return (
