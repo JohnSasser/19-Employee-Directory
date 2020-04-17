@@ -10,6 +10,7 @@ import API from '../utils/API';
 class EmpContainer extends Component {
 	state = {
 		results: [],
+		filteredResults: [],
 		search: '',
 		alphaOrder: true,
 	};
@@ -17,13 +18,14 @@ class EmpContainer extends Component {
 	// when class gets mounted into the virtual dom, componentDidMount will run the function;
 	componentDidMount() {
 		this.searchEmployees();
-		// this.handleSort();
 	}
 
 	searchEmployees = () => {
 		API.search()
 			// res is the data coming back from the axios call;
-			.then((res) => this.setState({ results: res.data.results }))
+			.then((res) =>
+				this.setState({ results: res.data.results }, () => this.search())
+			)
 			.catch((err) => console.log(err));
 	};
 
@@ -82,15 +84,31 @@ class EmpContainer extends Component {
 		console.log(sortedEmployees);
 	};
 
-	handleInputChange = (event) => {
+	handleInputChange = (e) => {
 		// Getting the value and name of the input which triggered the change
-		const value = event.target.value;
-		const name = event.target.name;
+		const value = e.target.value.toLowerCase();
+		const name = e.target.name;
+
+		console.log(`name property: ${name}`, `value property: ${value}`);
 
 		// Updating the input's state
-		this.setState({
-			[name]: value,
-		});
+		this.setState(
+			{
+				[name]: value,
+			},
+			() => {
+				this.search();
+			}
+		);
+	};
+
+	search = () => {
+		const filteredResults = this.state.results.filter((result) =>
+			result.email.includes(this.state.search)
+		);
+
+		// console.log(filteredResults);
+		this.setState({ filteredResults: filteredResults });
 	};
 
 	handleFormSubmit = (event) => {
@@ -104,6 +122,14 @@ class EmpContainer extends Component {
 
 		return (
 			<Container>
+				<input
+					value={this.state.search}
+					name="search"
+					type="search"
+					onChange={this.handleInputChange}
+				/>
+				<p>You searched: {this.state.search}</p>
+
 				<Card className="justify-content-center">
 					<Row heading="Your Awesome Company!!!">
 						<Col size="md-3">
@@ -134,8 +160,8 @@ class EmpContainer extends Component {
 						</Col>
 					</Row>
 				</Card>
-				{this.state.results.map((employee) => {
-					console.log(employee);
+				{this.state.filteredResults.map((employee) => {
+					// console.log(employee);
 					return (
 						// outermost component in a loop needs a key value PROP.
 						<Card key={employee.id.value}>
