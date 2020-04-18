@@ -3,6 +3,7 @@ import Container from './Container';
 import Row from './Row';
 import Col from './Col';
 import Card from './Card';
+import Jumbotron from './Jumbotron';
 import SearchForm from './SearchForm';
 import MovieDetail from './MovieDetail';
 import API from '../utils/API';
@@ -122,16 +123,21 @@ class EmpContainer extends Component {
 
 		return (
 			<Container>
-				<input
-					value={this.state.search}
-					name="search"
-					type="search"
-					onChange={this.handleInputChange}
-				/>
-				<p>You searched: {this.state.search}</p>
+				<div className="jumbotron text-center">
+					<h1>Employee Directory</h1>
+				</div>
+				<Card heading="Search">
+					<input
+						value={this.state.search}
+						name="search"
+						type="search"
+						onChange={this.handleInputChange}
+					/>
+				</Card>
+				{/* <p>You searched: {this.state.search}</p> */}
 
 				<Card className="justify-content-center">
-					<Row heading="Your Awesome Company!!!">
+					<Row>
 						<Col size="md-3">
 							<button className="btn btn-light btn-sm" disabled>
 								HEAD-SHOT
