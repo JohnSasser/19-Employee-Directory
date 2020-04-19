@@ -4,7 +4,7 @@ function Jumbotron(props) {
 	return (
 		<div
 			className="jumbotron text-center"
-			style={{ backgroundColor: '#D9EBFF' }}
+			style={{ backgroundColor: '#C3F3FF' }}
 		>
 			<h1>Employee Directory</h1>
 		</div>

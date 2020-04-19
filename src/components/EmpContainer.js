@@ -4,8 +4,6 @@ import Row from './Row';
 import Col from './Col';
 import Card from './Card';
 import Jumbotron from './Jumbotron';
-import SearchForm from './SearchForm';
-import MovieDetail from './MovieDetail';
 import API from '../utils/API';
 
 class EmpContainer extends Component {
@@ -123,9 +121,10 @@ class EmpContainer extends Component {
 
 		return (
 			<Container>
-				<div className="jumbotron text-center">
+				<Jumbotron />
+				{/* <div className="jumbotron text-center">
 					<h1>Employee Directory</h1>
-				</div>
+				</div> */}
 				<Card heading="Search">
 					<input
 						value={this.state.search}
