@@ -9,7 +9,9 @@ function Card(props) {
 				</div>
 			)}
 
-			<div className="card-body">{props.children}</div>
+			<div className="card-body" style={{ textAlign: 'center' }}>
+				{props.children}
+			</div>
 		</div>
 	);
 }

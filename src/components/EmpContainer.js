@@ -172,7 +172,7 @@ class EmpContainer extends Component {
 						<Card key={employee.id.value}>
 							<Row>
 								<Col size="md-3">
-									<img src={employee.picture.medium} />
+									<img alt="head-shot" src={employee.picture.medium} />
 								</Col>
 								<Col size="md-3">
 									{employee.name.first} {employee.name.last}
