@@ -10,6 +10,7 @@ This app was built with vanilla javascript and React.js. You can filter and sort
   <br>
   <a href="https://johnsasser.github.io/19-Employee-Directory/">Employee Directory</a> 
   <br>
+  <br>
   <img src="app-picture.png">
 </p>
 
