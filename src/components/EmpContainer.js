@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Container from './Container';
-import Row from './Row';
-import Col from './Col';
 import Card from './Card';
 import Jumbotron from './Jumbotron';
 import API from '../utils/API';
+import DataTable from './DataTable';
 
 class EmpContainer extends Component {
 	state = {
 		results: [],
-		filteredResults: [],
+		// filteredResults: [],
 		search: '',
 		alphaOrder: true,
 	};
@@ -121,10 +120,10 @@ class EmpContainer extends Component {
 
 		return (
 			<Container>
-				<Jumbotron />
-				{/* <div className="jumbotron text-center">
-					<h1>Employee Directory</h1>
-				</div> */}
+				{/* the prop property comes from where the component is called */}
+				{/* <Jumbotron text="Text Text" /> */}
+				<Jumbotron text="Employee Directory" backgroundColor="#c3f3ff" />
+
 				<Card heading="Search">
 					<input
 						value={this.state.search}
@@ -133,56 +132,17 @@ class EmpContainer extends Component {
 						onChange={this.handleInputChange}
 					/>
 				</Card>
-				{/* <p>You searched: {this.state.search}</p> */}
 
-				<Card className="justify-content-center">
-					<Row>
-						<Col size="md-3">
-							<button className="btn btn-light btn-sm" disabled>
-								HEAD-SHOT
-							</button>
-						</Col>
-						<Col size="md-3" className="btn btn-light btn-sm">
-							<button
-								className="btn btn-light btn-sm"
-								onClick={() => this.handleSort('name')}
-							>
-								NAME
-							</button>
-						</Col>
-						<Col size="md-3">
-							<button className="btn btn-light btn-sm" disabled>
-								CELL
-							</button>
-						</Col>
-						<Col size="md-3">
-							<button
-								className="btn btn-light btn-sm"
-								onClick={() => this.handleSort('email')}
-							>
-								EMAIL
-							</button>
-						</Col>
-					</Row>
-				</Card>
-				{this.state.filteredResults.map((employee) => {
-					// console.log(employee);
-					return (
-						// outermost component in a loop needs a key value PROP.
-						<Card key={employee.id.value}>
-							<Row>
-								<Col size="md-3">
-									<img alt="head-shot" src={employee.picture.medium} />
-								</Col>
-								<Col size="md-3">
-									{employee.name.first} {employee.name.last}
-								</Col>
-								<Col size="md-3">{employee.cell}</Col>
-								<Col size="md-3">{employee.email}</Col>
-							</Row>
-						</Card>
-					);
-				})}
+				<DataTable
+					headShot="Head-Shot"
+					name="Name"
+					phone="Cell"
+					email="Email"
+					employees={this.state.results}
+					handleSort={this.handleSort}
+					// filteredEmployees={this.state.filteredResults}
+					search={this.state.search}
+				/>
 			</Container>
 		);
 	}

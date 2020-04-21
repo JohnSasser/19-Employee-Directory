@@ -4,7 +4,10 @@ function Card(props) {
 	return (
 		<div className="card text-center">
 			{props.heading && (
-				<div className="card-header" style={{ backgroundColor: '#88B4FF' }}>
+				<div
+					className="card-header"
+					style={{ backgroundColor: props.headerBackgroundColor }}
+				>
 					<h2>{props.heading}</h2>
 				</div>
 			)}
