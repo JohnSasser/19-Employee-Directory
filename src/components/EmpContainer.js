@@ -8,7 +8,6 @@ import DataTable from './DataTable';
 class EmpContainer extends Component {
 	state = {
 		results: [],
-		// filteredResults: [],
 		search: '',
 		alphaOrder: true,
 	};
